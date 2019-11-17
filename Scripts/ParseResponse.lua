@@ -15,15 +15,15 @@ function Update()
     -- Parse JSON
     jsondata = SELF:GetOption('Data', '{}')
     data = json.decode(jsondata)
-    if not data['data'] or not data['data'][1] or not data['data'][1]['categories'] then
-        SKIN:Bang('!SetVariable', status_var, 'API Error')
-        return 'API Error'
-    end
 
     -- Handle error
     if data['error'] then
         SKIN:Bang('!SetVariable', status_var, 'API Error: ' .. data['error'])
         return 'API Error: ' .. data['error']
+    end
+    if not data['data'] or not data['data'][1] or not data['data'][1]['categories'] then
+        SKIN:Bang('!SetVariable', status_var, 'API Error')
+        return 'API Error'
     end
 
     -- Unpack category data
